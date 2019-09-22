@@ -7,7 +7,7 @@ void direct_movement(size_t size_mbits) {
   size /= 4;
   int* buf = new int[size]();
   int i = 0;
-  for (; i < size / 64; i++) {
+  for (; static_cast<size_t>(i) < size / 64; i++) {
     buf[i * 64] = (i + 1) * 64;
   }
   i--;
@@ -30,7 +30,7 @@ void reverse_movement(size_t size_mbits) {
   size /= 4;
   int* buf = new int[size]();
   int i = 1;
-  for (; i < size / 64; i++) {
+  for (; static_cast<size_t>(i) < size / 64; i++) {
     buf[i * 64] = (i - 1) * 64;
   }
   i--;
@@ -61,7 +61,8 @@ int* random_filling(size_t size) {
   for (size_t ind = 0; ind < k; ind++) {
     bool is_used = true;
     while (is_used) {
-      i = rand() % k;
+      size_t cl = clock();
+      i = rand_r(&cl) % k;
       if (i != 1 && res[i * 64] == 0) {
         is_used = false;
         res[i * 64] = temp[ind];
