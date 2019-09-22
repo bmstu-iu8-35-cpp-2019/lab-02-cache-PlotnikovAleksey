@@ -1,4 +1,4 @@
-// Copyright 2018 Your Name <your_email>
+// Copyright 2019 Plotnikov Aleksey <alex280201@gmail.com>
 
 #include <gtest/gtest.h>
 
