@@ -61,7 +61,7 @@ int* random_filling(size_t size) {
   for (size_t ind = 0; ind < k; ind++) {
     bool is_used = true;
     while (is_used) {
-      size_t cl = clock();
+      unsigned int cl = clock();
       i = rand_r(&cl) % k;
       if (i != 1 && res[i * 64] == 0) {
         is_used = false;
