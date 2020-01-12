@@ -2,6 +2,9 @@
 
 #include <header.hpp>
 
+// umnozhenie na 10^6 - millisec to nanosec
+// delenie na (3*10^4 * 10^3) - kolichestvo obrazchenii k odnomy elementu
+
 void direct_movement(size_t size_mbits) {
   size_t size = 128 * 1024 * size_mbits;
   size /= 4;
@@ -22,7 +25,8 @@ void direct_movement(size_t size_mbits) {
   size_t end = clock();
   delete[] buf;
   size_t res = end - begin;
-  std::cout << res / 30. << " ns\n";
+  std::cout << 1000000 * res / (30000. * 1000.)
+            << " ns\n";  // equals to "res / 30."
 }
 
 void reverse_movement(size_t size_mbits) {
@@ -45,7 +49,8 @@ void reverse_movement(size_t size_mbits) {
   size_t end = clock();
   delete[] buf;
   size_t res = end - begin;
-  std::cout << res / 30. << " ns\n";
+  std::cout << 1000000 * res / (30000. * 1000.)
+            << " ns\n";  // equals to "res / 30."
 }
 
 int* random_filling(size_t size) {
@@ -86,7 +91,8 @@ void random_movement(size_t size_mbits) {
   size_t end = clock();
   delete[] buf;
   size_t res = end - begin;
-  std::cout << res / 30. << " ns\n";
+  std::cout << 1000000 * res / (30000. * 1000.)
+            << " ns\n";  // equals to "res / 30."
 }
 
 void report(mode _mode) {
@@ -99,7 +105,7 @@ void report(mode _mode) {
       std::cout << "\n  - experiment:\n      number: " << number;
       std::cout << "\n      input_data:\n        buffer_size: \"" << i / 8.
                 << "mb\"";
-      std::cout << "\n      results:\n        duration: \"";
+      std::cout << "\n      results:\n        single element's access: \"";
       direct_movement(i);
       number++;
     }
@@ -112,7 +118,7 @@ void report(mode _mode) {
       std::cout << "\n  - experiment:\n      number: " << number;
       std::cout << "\n      input_data:\n        buffer_size: \"" << i / 8.
                 << "mb\"";
-      std::cout << "\n      results:\n        duration: \"";
+      std::cout << "\n      results:\n        single element's access: \"";
       reverse_movement(i);
       number++;
     }
@@ -128,7 +134,7 @@ void report(mode _mode) {
       std::cout << "\n  - experiment:\n      number: " << number;
       std::cout << "\n      input_data:\n        buffer_size: \"" << i / 8.
                 << "mb\"";
-      std::cout << "\n      results:\n        duration: \"";
+      std::cout << "\n      results:\n        single element's access: \"";
       random_movement(i);
       number++;
     }
